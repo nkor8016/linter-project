@@ -35,5 +35,5 @@ jobs:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #          LINTER_RULES_PATH: config/lint
-          JAVA_FILE_NAME: intellij-java-google-style.xml
+          JAVA_FILE_NAME: checkStyle.xml
           FILTER_REGEX_INCLUDE: "^(.*src/.*|.*test/.*)"
