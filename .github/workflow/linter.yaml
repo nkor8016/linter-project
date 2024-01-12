@@ -1,0 +1,23 @@
+name: Find Style and Format Violations
+
+on:
+  push:
+  pull_requests:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build the code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@2
+        with:
+          fetch-depth: 0
+      - name: find style & format errors
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_ACTION }}
