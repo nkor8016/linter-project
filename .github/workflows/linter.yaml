@@ -1,24 +1,35 @@
+---
 name: Find Style and Format Violations
 
 on:
-  push:
+  push: null
   pull_request:
     branches: [master]
   workflow_dispatch:
 
 jobs:
   build:
-    name: Build the code
+    name: Find Violations
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
           fetch-depth: 0
-      - name: find style & format errors
-        uses: github/super-linter@v3
+
+      - name: Super Linter checks for violations
+        uses: super-linter/super-linter@v5.7.2  # x-release-please-version
         env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: master
-          GITHUB_TOKEN: ${{ secrets.GITHUB_ACTION }}
+          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+...
