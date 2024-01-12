@@ -34,3 +34,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: ./config/lint
 #          JAVA_FILE_NAME: `./config/lint/intellij-java-google-style.xml`
+          FILTER_REGEX_INCLUDE: "^(.*src/.*|.*test/.*)"
