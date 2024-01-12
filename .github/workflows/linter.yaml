@@ -32,5 +32,5 @@ jobs:
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LINTER_RULES_PATH: `config/lint`
+          LINTER_RULES_PATH: ./config/lint
 #          JAVA_FILE_NAME: `./config/lint/intellij-java-google-style.xml`
