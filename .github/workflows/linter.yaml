@@ -2,7 +2,7 @@ name: Find Style and Format Violations
 
 on:
   push:
-  pull_requests:
+  pull_request:
     branches: [master]
   workflow_dispatch:
 
