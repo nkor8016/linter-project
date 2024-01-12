@@ -4,7 +4,7 @@ name: Find Style and Format Violations
 on:
   push: null
   pull_request:
-    branches: [master]
+    branches: [master, main]
   workflow_dispatch:
 
 jobs:
