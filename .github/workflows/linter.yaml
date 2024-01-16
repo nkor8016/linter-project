@@ -37,3 +37,5 @@ jobs:
 #          LINTER_RULES_PATH: config/lint
           JAVA_FILE_NAME: google_checks.xml
           FILTER_REGEX_INCLUDE: "^(.*src/.*|.*test/.*)"
+#          VALIDATE_ALL_CODEBASE: false  # Only lint changed files
+          DISABLE_ERRORS: false  # Treat errors as failures
