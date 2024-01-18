@@ -16,10 +16,6 @@ Z
 *config/lint/intellij-java-google-style.xml,6\a\6a953161999b560d9382695f2aa82c3854afae54
 M
 .github/workflows/linter.yaml,9\2\92b8feaf0ec026254746bfdc03eba42b66c2f464
-=
-.editorconfig,6\2\626a747c8694eaae66f2afb3d1a745b045782c70
-N
-.github/linters/checkStyle.xml,b\1\b1a5886efe3a5de4f4cee197e02b0b1a056d0ad8
 B
 Sysco_COE_Java.xml,8\e\8e689ed2d9f5217a7d0f99c62c127064e10078d3
 S
@@ -28,3 +24,15 @@ I
 .idea/JetClient/state.xml,4\e\4e6e58e82ecfa92cb3dbfc711b374423ae3639d2
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
+Q
+!.github/linters/google_checks.xml,5\e\5ecdaa033ed028dbe2e4afba78d09b366e9cf37f
+A
+google_checks.xml,9\0\90968845c8c2ff3bdd785c92de30d875116ef825
+@
+super-linter.env,a\a\aabfb250c80a53e3d8e7b6880f73a1d9622549b6
+C
+run-mega-linter.bat,c\6\c6ad166f9597d0e0aded1269c99159e8b4ba7092
+?
+mega-linter.yml,d\2\d2ba9bd301b7d9073df185dbed23149ad5063d4e
+\
+,megalinter-reports/IDE-config/sun_checks.xml,e\c\ec9dbd78549a3d691958f1384233ba443ff01872
