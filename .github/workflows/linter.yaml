@@ -54,8 +54,8 @@ jobs:
     needs: build
 
     permissions:
-      contents: write
-      packages: write
+      contents: read
+      packages: read
       # To report GitHub Actions status checks
       statuses: write
 
