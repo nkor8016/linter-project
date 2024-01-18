@@ -43,7 +43,7 @@ jobs:
           DISABLE_WARNINGS: false  # Treat warnings as failures
 
   get_report:
-    name: Find Violations
+    name: Get Super Linter report
     runs-on: ubuntu-latest
 
     permissions:
