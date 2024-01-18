@@ -47,21 +47,21 @@ jobs:
           name: super-linter-report
           path: ./linter-reports/report.json
 
-    display-report:
-      name: display Super Linter report
-      runs-on: ubuntu-latest
-      needs: lint
+  display-report:
+    name: display Super Linter report
+    runs-on: ubuntu-latest
+    needs: lint
 
-      steps:
-        - name: Download Linter Report
-          uses: actions/download-artifact@v2
-          with:
-            name: linter-report
-            path: ./linter-reports/report.json
+    steps:
+      - name: Download Linter Report
+        uses: actions/download-artifact@v2
+        with:
+          name: linter-report
+          path: ./linter-reports/report.json
 
-        - name: Display Linter Report
-          uses: softprops/action-gh-release@v1
-          with:
-            files: ./linter-reports/report.json
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Display Linter Report
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./linter-reports/report.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
