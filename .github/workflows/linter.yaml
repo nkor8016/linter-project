@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Super Linter checks for violations
-        uses: super-linter/super-linter:slim-v5  # x-release-please-version
+        uses: super-linter/super-linter@slim-v5  # x-release-please-version
         continue-on-error: true
         env:
 #          ACTIONS_RUNNER_DEBUG: true
