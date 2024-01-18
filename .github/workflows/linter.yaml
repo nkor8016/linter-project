@@ -28,7 +28,6 @@ jobs:
 
       - name: Super Linter checks for violations
         uses: super-linter/super-linter@v5.7.2  # x-release-please-version
-        continue-on-error: true
         env:
 #          ACTIONS_RUNNER_DEBUG: true
           VALIDATE_JAVA: true
