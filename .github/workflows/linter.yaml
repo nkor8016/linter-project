@@ -39,8 +39,8 @@ jobs:
           JAVA_FILE_NAME: google_checks.xml
           FILTER_REGEX_INCLUDE: "^(.*src/.*|.*test/.*)"
 #          VALIDATE_ALL_CODEBASE: false # Only lint changed files
-          DISABLE_ERRORS: false  # Treat errors as failures
-          DISABLE_WARNINGS: false  # Treat warnings as failures
+#          DISABLE_ERRORS: false  # Treat errors as failures
+#          DISABLE_WARNINGS: false  # Treat warnings as failures
 
       - name: Save Super Linter Report
         uses: actions/upload-artifact@v3
