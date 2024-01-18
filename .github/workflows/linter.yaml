@@ -42,48 +42,19 @@ jobs:
           DISABLE_ERRORS: false  # Treat errors as failures
           DISABLE_WARNINGS: false  # Treat warnings as failures
 
+  get_report:
+    name: Find Violations
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+      # To report GitHub Actions status checks
+      statuses: write
+
+    steps:
       - name: Save Super Linter Report
         uses: actions/upload-artifact@v3
         with:
           name: super-linter-report
-          path: ./linter-reports/report.json
-
-      - name: Download Linter Report
-        uses: actions/download-artifact@v2
-        with:
-          name: linter-report
-          path: ./linter-reports/report.json
-
-      - name: Display Linter Report
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ./linter-reports/report.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install -g github
-
-      - name: Create a GitHub Check for Super Linter Errors
-        run: |
-          # Use GitHub CLI to create a check run
-          check_run_id=$(gh api "repos/${{ github.repository }}/check-runs" \
-            -F name='Super Linter' \
-            -F head_sha="${{ github.sha }}" \
-            -F status=completed \
-            -F conclusion=failure \
-            -F output@super_linter_output.txt)
-              
-            echo "::set-output name=check_run_id::$check_run_id"
-
-      - name: Reject Pull Request
-        if: failure()
-        run: echo "Super Linter found errors. Please fix them and resubmit the pull request."
+          path: ./linter-reports/super-linter-report.json
