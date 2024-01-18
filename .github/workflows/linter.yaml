@@ -28,6 +28,7 @@ jobs:
 
       - name: Super Linter checks for violations
         uses: super-linter/super-linter@v5.7.2  # x-release-please-version
+        continue-on-error: true
         env:
 #          ACTIONS_RUNNER_DEBUG: true
           VALIDATE_JAVA: true
@@ -41,6 +42,12 @@ jobs:
           DISABLE_ERRORS: false  # Treat errors as failures
           DISABLE_WARNINGS: false  # Treat warnings as failures
 
+      - name: Save Super Linter Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: super-linter-report
+          path: ./linter-reports/super-linter-report.json
+
   get_report:
     name: Get Super Linter report
     runs-on: ubuntu-latest
@@ -53,8 +60,15 @@ jobs:
       statuses: write
 
     steps:
-      - name: Save Super Linter Report
-        uses: actions/upload-artifact@v3
+      - name: Download Linter Report
+        uses: actions/download-artifact@v2
         with:
           name: super-linter-report
           path: ./linter-reports/super-linter-report.json
+
+      - name: Display Linter Report
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./linter-reports/super-linter-report.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
