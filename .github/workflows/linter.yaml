@@ -47,6 +47,7 @@ jobs:
         with:
           name: super-linter-report
           path: super-linter-report.json
+          if-no-files-found: error
 
 #  get_report:
 #    name: Get Super Linter report
