@@ -40,3 +40,9 @@ jobs:
 #          VALIDATE_ALL_CODEBASE: false # Only lint changed files
           DISABLE_ERRORS: false  # Treat errors as failures
           DISABLE_WARNINGS: false  # Treat warnings as failures
+
+      - name: Save Super Linter Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: super-linter-report
+          path: ./linter-reports/report.json
