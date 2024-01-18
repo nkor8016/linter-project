@@ -47,12 +47,6 @@ jobs:
           name: super-linter-report
           path: ./linter-reports/report.json
 
-  display-report:
-    name: display Super Linter report
-    runs-on: ubuntu-latest
-    needs: lint
-
-    steps:
       - name: Download Linter Report
         uses: actions/download-artifact@v2
         with:
