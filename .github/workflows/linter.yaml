@@ -69,6 +69,7 @@ jobs:
       - name: Display Linter Report
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: 123
           files: ./linter-reports/super-linter-report.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
