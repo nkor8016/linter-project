@@ -61,7 +61,7 @@ jobs:
 
     steps:
       - name: Download Linter Report
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: super-linter-report
           path: ./linter-reports/super-linter-report.json
