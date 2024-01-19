@@ -61,8 +61,12 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
+      - name: Load super-linter configuration
+        run: cat .github/super-linter.env >> "$GITHUB_ENV"
+
+
       - name: run super linter
-        run: docker run --env-file ".github/super-linter.env" -v .:/tmp/lint --rm ghcr.io/super-linter/super-linter:latest
+        run: docker run -v .:/tmp/lint --rm ghcr.io/super-linter/super-linter:latest
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
