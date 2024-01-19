@@ -62,7 +62,7 @@ jobs:
           fetch-depth: 0
 
       - name: run super linter
-        run: docker run --env-file ".github/super-linter.env" -v .:/tmp/lint --rm ghcr.io/super-linter/super-linter:latest > linter_report.log
+        run: docker run --env-file ".github/super-linter.env" -v .:/tmp/lint --rm ghcr.io/super-linter/super-linter:latest
 
       - name: save report log
         run: echo "${{ steps.lint.outputs.stdout }}" > linter_report.log
