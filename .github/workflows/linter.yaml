@@ -50,6 +50,12 @@ jobs:
           path: super-linter.log
           if-no-files-found: error
 
+      - name: Download Linter Report
+        uses: actions/download-artifact@v4
+        with:
+          name: super-linter-report
+          path: ./linter-reports/super-linter-report.json
+
 
 #  get_report:
 #    name: Get Super Linter report
