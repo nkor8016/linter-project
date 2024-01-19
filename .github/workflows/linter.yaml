@@ -30,9 +30,10 @@ jobs:
         run: cat .github/super-linter.env >> "$GITHUB_ENV"
 
       - name: Super Linter checks for violations
-        uses: super-linter/super-linter@v5.7.2 > linter-report.log # x-release-please-version
+        uses: super-linter/super-linter@v5.7.2 # x-release-please-version
         continue-on-error: true
         env:
+          LOG_FILE: true
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JAVA_FILE_NAME: google_checks.xml
