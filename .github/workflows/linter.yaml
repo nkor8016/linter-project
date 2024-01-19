@@ -47,14 +47,14 @@ jobs:
       - name: Save Super Linter Report
         uses: actions/upload-artifact@v4
         with:
-          name: get linter log
+          name: linter log
           path: super-linter.log
           if-no-files-found: error
 
       - name: Download Linter Report
         uses: actions/download-artifact@v4
         with:
-          name: get linter log
+          name: linter log
           path: super-linter.log
 
       - name: Extract Data
@@ -65,7 +65,7 @@ jobs:
       - name: Upload error file
         uses: actions/upload-artifact@v4
         with:
-          name: error file
+          name: error log
           path: super-linter.log
 
 #  get_report:
