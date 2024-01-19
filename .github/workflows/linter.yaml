@@ -50,36 +50,6 @@ jobs:
           path: super-linter-report.json
           if-no-files-found: error
 
-  save-report:
-    name: lint code and save report
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          # super-linter needs the full git history to get the
-          # list of files that changed across commits
-          fetch-depth: 0
-
-      - name: Load super-linter configuration
-        run: cat .github/super-linter.env >> "$GITHUB_ENV"
-
-
-      - name: run super linter
-        run: docker run -v .:/tmp/lint --rm ghcr.io/super-linter/super-linter:latest
-        env:
-          # To report GitHub Actions status checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: save report log
-        run: echo "${{ steps.lint.outputs.stdout }}" > linter_report.log
-
-      - name: Save report to artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: linter-report
-          path: linter-report.log
-
 
 #  get_report:
 #    name: Get Super Linter report
