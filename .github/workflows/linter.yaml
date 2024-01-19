@@ -67,12 +67,11 @@ jobs:
       - name: save report log
         run: echo "${{ steps.lint.outputs.stdout }}" > linter_report.log
 
-      - name: Commit report log
-        run: |
-          git config -- global user.name "nkor8016"
-          git config -- global user.email "nkor8016@sysco.com"
-          git add linter_report.log
-          git commit -m "Add super linter report log" 
+      - name: Save report to artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linter-report
+          path: linter-report.log
 
 
 #  get_report:
