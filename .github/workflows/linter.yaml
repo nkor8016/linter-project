@@ -33,7 +33,7 @@ jobs:
         uses: super-linter/super-linter@v5.7.2 # x-release-please-version
         continue-on-error: true
         env:
-          LOG_FILE: linter-report.log
+          LOG_FILE: super-linter-report.log
           CREATE_LOG_FILE: true
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
