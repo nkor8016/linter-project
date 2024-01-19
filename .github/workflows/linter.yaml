@@ -51,11 +51,11 @@ jobs:
           path: super-linter.log
           if-no-files-found: error
 
-      - name: Download Linter Report
-        uses: actions/download-artifact@v4
-        with:
-          name: linter log
-          path: super-linter.log
+#      - name: Download Linter Report
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: linter log
+#          path: super-linter.log
 
       - name: Extract Data
         run: |
