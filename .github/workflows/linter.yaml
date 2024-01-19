@@ -33,7 +33,6 @@ jobs:
         uses: super-linter/super-linter@v5.7.2 # x-release-please-version
         continue-on-error: true
         env:
-          LOG_FILE: super-linter-report.log
           CREATE_LOG_FILE: true
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,8 +47,8 @@ jobs:
       - name: Save Super Linter Report
         uses: actions/upload-artifact@v4
         with:
-          name: super-linter-report
-          path: super-linter-report.json
+          name: get linter log
+          path: super-linter.log
           if-no-files-found: error
 
 
