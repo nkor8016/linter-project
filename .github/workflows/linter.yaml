@@ -57,6 +57,16 @@ jobs:
           name: super-linter-report
           path: ./linter-reports/super-linter-report.json
 
+      - name: Extract Data
+        run: |
+          grep -E "\[ERROR]" super-linter.log > error-data.txt
+          echo "::set-output name=error-file::error-data.txt"
+
+      - name: Upload error file
+        uses: actions/upload-artifacts@v4
+        with:
+          name: error file
+          path: super-linter.log
 
 #  get_report:
 #    name: Get Super Linter report
