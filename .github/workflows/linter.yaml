@@ -4,7 +4,7 @@ name: Find Style and Format Violations
 on:
   push: null
   pull_request:
-    branches: [master, main]
+    branches: [ master, main ]
   workflow_dispatch:
 
 jobs:
@@ -30,17 +30,17 @@ jobs:
         uses: super-linter/super-linter@v5.7.2  # x-release-please-version
         continue-on-error: true
         env:
-#          ACTIONS_RUNNER_DEBUG: true
+          #          ACTIONS_RUNNER_DEBUG: true
           VALIDATE_JAVA: true
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          LINTER_RULES_PATH: config/lint
+          #          LINTER_RULES_PATH: config/lint
           JAVA_FILE_NAME: google_checks.xml
           FILTER_REGEX_INCLUDE: "^(.*src/.*|.*test/.*)"
-#          VALIDATE_ALL_CODEBASE: false # Only lint changed files
-#          DISABLE_ERRORS: false  # Treat errors as failures
-#          DISABLE_WARNINGS: false  # Treat warnings as failures
+      #          VALIDATE_ALL_CODEBASE: false # Only lint changed files
+      #          DISABLE_ERRORS: false  # Treat errors as failures
+      #          DISABLE_WARNINGS: false  # Treat warnings as failures
 
       - name: Save Super Linter Report
         uses: actions/upload-artifact@v4
@@ -48,6 +48,31 @@ jobs:
           name: super-linter-report
           path: super-linter-report.json
           if-no-files-found: error
+
+  save-report:
+    name: lint code and save report
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
+
+      - name: run super linter
+        run: super-linter > linter-report.log
+
+      - name: save report log
+        run: echo "${{ steps.lint.outputs.stdout }}" > linter_report.log
+
+      - name: Commit report log
+        run: |
+          git config -- global user.name "nkor8016"
+          git config -- global user.email "nkor8016@sysco.com"
+          git add linter_report.log
+          git commit -m "Add super linter report log" 
+
 
 #  get_report:
 #    name: Get Super Linter report
