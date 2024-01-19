@@ -63,7 +63,7 @@ jobs:
           echo "::set-output name=error-file::error-data.txt"
 
       - name: Upload error file
-        uses: actions/upload-artifacts@v4
+        uses: actions/upload-artifact@v4
         with:
           name: error file
           path: super-linter.log
