@@ -36,6 +36,12 @@ jobs:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JAVA_FILE_NAME: google_checks.xml
+          VALIDATE_JAVA: true
+          #          ACTIONS_RUNNER_DEBUG: true
+          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
+          #          LINTER_RULES_PATH: config/lint
+          FILTER_REGEX_INCLUDE: "^(.*src/.*|.*test/.*)"
 
       - name: Save Super Linter Report
         uses: actions/upload-artifact@v4
