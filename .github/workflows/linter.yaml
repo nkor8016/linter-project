@@ -22,14 +22,11 @@ jobs:
         id: pmd
         with:
           version: '6.40.0'
-          sourcePath: 'src/main/java'
+          sourcePath: 'src/'
           rulesets: '.github/linters/sum_checks.xml'
+          analyzeModifiedFilesOnly: false
+
 
       - name: Fail build if there are violations
         if: steps.pmd.outputs.violations != 0
         run: exit 1
-
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: pmd-report.sarif
