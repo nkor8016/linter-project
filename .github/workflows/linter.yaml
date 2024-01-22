@@ -45,12 +45,12 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true # ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} # Validates all source when push on master, else just the git diff with master. Override with true if you always want to lint all sources
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_INCLUDE: (src/)
+#          FILTER_REGEX_INCLUDE: (./src/**/*.java)
           ENABLE: JAVA
           ENABLE_LINTERS: JAVA_CHECKSTYLE
           DISABLE_LINTERS: JAVA_PMD
           JAVA_CHECKSTYLE_CONFIG_FILE: google_checks.xml
-          CLI_LINT_MODE: project
+#          CLI_LINT_MODE: project
 
       - name: Archive production artifacts
         if: success() || failure()
