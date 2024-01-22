@@ -50,6 +50,7 @@ jobs:
           ENABLE_LINTERS: JAVA_CHECKSTYLE
           DISABLE_LINTERS: JAVA_PMD
           JAVA_CHECKSTYLE_CONFIG_FILE: google_checks.xml
+          CLI_LINT_MODE: project
 
       - name: Archive production artifacts
         if: success() || failure()
