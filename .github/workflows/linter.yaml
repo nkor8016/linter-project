@@ -9,7 +9,7 @@ on:
 
 jobs:
   super-linter:
-    name: Find Violations Using Mega Linter
+    name: Find Violations Using Super Linter
     runs-on: ubuntu-latest
 
     permissions:
