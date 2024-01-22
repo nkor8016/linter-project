@@ -4,13 +4,15 @@
   "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
   <module name="NewlineAtEndOfFile"/>
-  <module name="Indentation">
-    <!--      https://checkstyle.sourceforge.io/checks/misc/indentation.html-->
-    <property name="basicOffset" value="2"/>
-    <property name="braceAdjustment" value="2"/>
-    <property name="caseIndent" value="2"/>
-    <property name="throwsIndent" value="4"/>
-    <property name="lineWrappingIndentation" value="4"/>
-    <property name="arrayInitIndent" value="2"/>
+  <module name="TreeWalker">
+    <module name="Indentation">
+<!--      https://checkstyle.sourceforge.io/checks/misc/indentation.html-->
+      <property name="basicOffset" value="2"/>
+      <property name="braceAdjustment" value="2"/>
+      <property name="caseIndent" value="2"/>
+      <property name="throwsIndent" value="4"/>
+      <property name="lineWrappingIndentation" value="4"/>
+      <property name="arrayInitIndent" value="2"/>
+    </module>
   </module>
 </module>
