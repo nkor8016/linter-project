@@ -1,64 +1,23 @@
----
-name: Find Style and Format Violations
+name: Format Java Code
 
 on:
-  push: null
-  pull_request:
-    branches: [ master, main ]
-  workflow_dispatch:
-
-env: #Uncomment to activate variables below
-  # Apply linter fixes configuration
-  APPLY_FIXES: all # Uncomment to apply fixes provided by linters. You can also specify the list of fixing linters
-  APPLY_FIXES_EVENT: all # Decide which event triggers application of fixes in a commit or a PR (pull_request (default), push, all)
-  APPLY_FIXES_MODE: pull_request # If APPLY_FIXES is used, defines if the fixes are directly committed (commit) or posted in a PR (pull_request)
-
-concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: true
-
-permissions: read-all
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
-    name: Find Violations
+  format-code:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-      packages: read
-      issues: write
-      pull-requests: write
-      # To report GitHub Actions status checks
-      statuses: write
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT }}
-          fetch-depth: 0
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Mega-Linter
-        id: ml
-        uses: oxsecurity/megalinter/flavors/java@beta
-        env:
-          VALIDATE_ALL_CODEBASE: true # ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} # Validates all source when push on master, else just the git diff with master. Override with true if you always want to lint all sources
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ENABLE: JAVA
-          ENABLE_LINTERS: JAVA_CHECKSTYLE
-          DISABLE_LINTERS: JAVA_PMD
-          JAVA_CHECKSTYLE_CONFIG_FILE: sun_checks.xml
-          APPLY_FIXES: all
-          APPLY_FIXES_EVENT: all
-          APPLY_FIXES_MODE: pull_request
-          PAT: ${{ secrets.PAT }}
-
-      - name: Archive production artifacts
-        if: success() || failure()
-        uses: actions/upload-artifact@v3
+      - name: Prettier Java Format
+        uses: tsar-boomba/prettier-java-format-action@main
         with:
-          name: Mega-Linter reports
-          path: |
-            megalinter-reports
-            mega-linter.log
+          prettier-args: '--tab-width 4  --write'  # See: https://prettier.io/docs/en/options.html
+          files: '**/*.java'
+          commit: 'true'
+          github-username: 'github-actions'
+          commit-message: 'Format Java Code'
