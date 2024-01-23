@@ -97,6 +97,7 @@ jobs:
   comment_on_pr:
     needs: mega-linter
     runs-on: ubuntu-latest
+    if: always()
 
     steps:
       - name: Checkout code
@@ -120,6 +121,7 @@ jobs:
           echo "::set-output name=content::$CONTENT"
 
   post_comment:
+    if: always()
     needs: comment_on_pr
     runs-on: ubuntu-latest
 
