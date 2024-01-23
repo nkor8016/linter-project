@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      step1_output: ${{ needs.upload.outputs.artifact_content }}
+      read_log: ${{ needs.mega-linter.read-log.artifact_content }}
 
     permissions:
       contents: write
@@ -69,6 +69,7 @@ jobs:
             mega-linter.log
 
       - name: Read content from artifact
+        id: read-log
         if: success() || failure()
         run: |
           ls megalinter-reports
@@ -78,7 +79,7 @@ jobs:
 
       - name: Pass content as an output
         if: success() || failure()
-        run: echo "artifact_content='${{ steps.read_content.outputs.content }}'" >> $GITHUB_ENV
+        run: echo "artifact_content='${{ steps.mega-linter.read-log.content }}'" >> $GITHUB_ENV
 
       - name: Debug
         run: |
