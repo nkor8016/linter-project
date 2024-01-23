@@ -75,6 +75,7 @@ jobs:
           echo "::set-output name=content::$content"
 
       - name: Pass content as an output
+        if: success() || failure()
         run: echo "artifact_content=${{ steps.read_content.outputs.content }}" >> $GITHUB_ENV
 
       - name: Comment a pull_request
