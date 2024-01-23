@@ -102,7 +102,7 @@ jobs:
     steps:
       - name: Checkout code
         if: success() || failure()
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Download artifact
         if: success() || failure()
