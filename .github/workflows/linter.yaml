@@ -78,15 +78,27 @@ jobs:
           paragraph=$(echo "$content" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
 
-      - name: Pass content as an output
-        if: success() || failure()
-        run: echo "artifact_content='${{ steps.read-log.outputs.content }}'" >> $GITHUB_ENV
+      - name: Extract information from log
+        id: extract-info
+        run: |
+          content=$(cat megalinter-reports/megalinter.log)
+          # Extracting error lines from the log
+          errors=$(echo "$content" | awk '/Error:/ {print}')
+
+          # Set the errors as an output
+          echo "::set-output name=errors::$errors"
+
+          # Extracting linting summary
+          summary=$(echo "$content" | awk '/SUMMARY/,/`/ {print}' | sed -n '2,/\+/p')
+
+          # Set the summary as an output
+          echo "::set-output name=summary::$summary"
 
       - name: Debug
         if: success() || failure()
         run: |
           cat megalinter-reports/megalinter.log
-          echo "Content: ${{ steps.read-log.outputs.content }}"
+          echo "Content: ${{ steps.extract-info.outputs.content }}"
 
       - name: Comment a pull_request
         if: success() || failure()
