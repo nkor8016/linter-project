@@ -82,10 +82,10 @@ jobs:
         if: success() || failure()
         id: extract-info
         run: |
-          content=$(grep '[Error]' megalinter-reports/megalinter.log)
+          content=$(megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
           echo "Content: $content"
-          echo "::set-env name=LOG_CONTENT::$(cat megalinter-reports/megalinter.log)"
+          echo "::set-env name=LOG_CONTENT::${{ content }}" >> $GITHUB_ENV
 
       - name: Debug
         if: success() || failure()
