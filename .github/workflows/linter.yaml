@@ -11,6 +11,7 @@ env:
   APPLY_FIXES: all
   APPLY_FIXES_EVENT: push
   APPLY_FIXES_MODE: commit
+  content: "demo content"
 
 jobs:
   mega-linter:
@@ -76,7 +77,7 @@ jobs:
 
       - name: Pass content as an output
         if: success() || failure()
-        run: echo "artifact_content=${{ steps.read_content.outputs.content }}" >> $GITHUB_ENV
+        run: echo "artifact_content='${{ steps.read_content.outputs.content }}'" >> $GITHUB_ENV
 
       - name: Debug
         run: |
