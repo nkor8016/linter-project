@@ -72,6 +72,6 @@ jobs:
           message: |
             body: |
             ```
-            ->${{ steps.read-log.outputs.extracted-errors }}<-
+            ->${{ steps.read-log.outputs.paragraph }}<-
             ```
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
