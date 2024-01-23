@@ -99,10 +99,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      - run: pip install line-extractor
-        if: success() || failure()
-
-      - run: python extract_lines.py megalinter-reports/megalinter.log > extracted-lines.txt
+      - run: python python/src/extract_lines.py megalinter-reports/megalinter.log > extracted-lines.txt
         if: success() || failure()
 
       - uses: actions/upload-artifact@v3
