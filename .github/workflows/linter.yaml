@@ -84,8 +84,7 @@ jobs:
         if: success() || failure()
         run: |
           cat megalinter-reports/megalinter.log
-          echo "Content: ${{ content }}"
-          echo "Content: $steps.read-log.outputs.content"
+          echo "Content: ${{ CONTENT }}"
           echo "Content: ${{ steps.read-log.outputs.content }}"
 
       - name: Comment a pull_request
