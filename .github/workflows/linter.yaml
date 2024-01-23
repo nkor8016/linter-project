@@ -79,6 +79,7 @@ jobs:
           echo "::set-output name=content::$paragraph"
 
       - name: Extract information from log
+        if: success() || failure()
         id: extract-info
         run: |
           content=$(cat megalinter-reports/megalinter.log)
