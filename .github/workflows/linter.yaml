@@ -93,3 +93,36 @@ jobs:
         with:
           message: "Artifact Content: ${{ steps.read_content.outputs.content }}"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  comment_on_pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download artifact
+        if: success() || failure()
+        uses: actions/download-artifact@v4
+        with:
+          name: Mega-Linter reports
+          path: |
+            megalinter-reports
+            mega-linter.log
+
+      - name: Read content from artifact
+        id: read_content
+        run: |
+          CONTENT=$(cat my-artifact/log.txt)
+          echo "::set-output name=content::$CONTENT"
+
+  post_comment:
+    needs: comment_on_pr
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Comment on Pull Request
+        uses: mb2dev/github-action-comment-pull-request@1.0.0
+        with:
+          message: "Artifact Content: ${{ needs.comment_on_pr.outputs.read_content }}"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
