@@ -78,6 +78,12 @@ jobs:
         if: success() || failure()
         run: echo "artifact_content=${{ steps.read_content.outputs.content }}" >> $GITHUB_ENV
 
+      - name: Debug
+        run: |
+          ls -R my-artifact
+          cat megalinter-reports/megalinter.log
+          echo "Content: $CONTENT"
+
       - name: Comment a pull_request
         if: success() || failure()
         uses: mb2dev/github-action-comment-pull-request@1.0.0
