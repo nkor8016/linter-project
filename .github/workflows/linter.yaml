@@ -63,7 +63,7 @@ jobs:
         if: success() || failure()
         run: |
           ls megalinter-reports
-          content=$(cat megalinter-reports/mega-linter.log)
+          content=$(cat megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
 
       - name: Comment a pull_request
