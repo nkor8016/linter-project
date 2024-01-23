@@ -117,7 +117,7 @@ jobs:
         if: success() || failure()
         id: read_content
         run: |
-          CONTENT=$(cat my-artifact/log.txt)
+          CONTENT=$(cat megalinter-reports/megalinter.log)
           echo "::set-output name=content::$CONTENT"
 
   post_comment:
