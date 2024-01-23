@@ -85,10 +85,10 @@ jobs:
           content=$(cat megalinter-reports/megalinter.log)
           # Extracting error lines from the log
           errors=$(echo "$content" | awk '/Error:/ {print}')
-
+          paragraph=$(echo "$errors" | tr '\n' '-lb-')
           # Set the errors as an output
           echo "::set-output name=errors::$errors"
-          echo "errors: $errors"
+          echo "::set-output name=content::$paragraph"
 
       - name: Debug
         if: success() || failure()
