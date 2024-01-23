@@ -82,6 +82,7 @@ jobs:
         run: echo "artifact_content='${{ steps.mega-linter.read-log.content }}'" >> $GITHUB_ENV
 
       - name: Debug
+        if: success() || failure()
         run: |
           ls -R my-artifact
           cat megalinter-reports/megalinter.log
@@ -100,6 +101,7 @@ jobs:
 
     steps:
       - name: Checkout code
+        if: success() || failure()
         uses: actions/checkout@v2
 
       - name: Download artifact
@@ -112,6 +114,7 @@ jobs:
             mega-linter.log
 
       - name: Read content from artifact
+        if: success() || failure()
         id: read_content
         run: |
           CONTENT=$(cat my-artifact/log.txt)
@@ -123,6 +126,7 @@ jobs:
 
     steps:
       - name: Comment on Pull Request
+        if: success() || failure()
         uses: mb2dev/github-action-comment-pull-request@1.0.0
         with:
           message: "Artifact Content: ${{ needs.comment_on_pr.outputs.read_content }}"
