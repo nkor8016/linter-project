@@ -7,6 +7,11 @@ on:
     branches: [ master, main ]
   workflow_dispatch:
 
+env:
+  APPLY_FIXES: all
+  APPLY_FIXES_EVENT: push
+  APPLY_FIXES_MODE: commit
+
 jobs:
   mega-linter:
     name: Find Violations Using Mega Linter
