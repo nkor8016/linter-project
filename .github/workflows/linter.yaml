@@ -90,5 +90,5 @@ jobs:
         if: success() || failure()
         uses: mb2dev/github-action-comment-pull-request@1.0.0
         with:
-          message: ${{ env.CONTENT }}
+          message: ${{ CONTENT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
