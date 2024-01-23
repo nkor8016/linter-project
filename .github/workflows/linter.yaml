@@ -82,8 +82,9 @@ jobs:
         if: success() || failure()
         id: extract-info
         run: |
-          content=$(grep '  Error:  ' megalinter-reports/megalinter.log)
+          content=$(grep '[Error]' megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
+          echo "Content: $content"
 
       - name: Debug
         if: success() || failure()
