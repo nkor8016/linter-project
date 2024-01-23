@@ -95,8 +95,10 @@ jobs:
           echo "Errors: ${{ steps.extract-info.outputs.errors }}"
 
       - run: grep -E '\[Error\]|Error:' megalinter-reports/megalinter.log > extracted-errors.txt
+        if: success() || failure()
 
       - name: Read extracted errors
+        if: success() || failure()
         id: get-error-lines
         uses: actions/github-script@v5
         with:
