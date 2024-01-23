@@ -50,15 +50,28 @@ jobs:
             megalinter-reports
             mega-linter.log
 
-      - name: Extract information
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+
+      - name: Read content from artifact
         run: |
-          # Extract the information you want to include in the comment
-          COMMENT_CONTENT="Your information here"
+          content=$(cat mega-linter.log)
+          echo "::set-output name=content::$content"
 
       - name: Comment on GitHub
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
-            -d '{"body": "'"${COMMENT_CONTENT}"'"}'
+            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
+            -d '{"body": "Artifact Content:\n\n'"${{ steps.comment_on_artifact.outputs.content }}"'"}'
