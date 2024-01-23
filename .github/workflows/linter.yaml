@@ -62,7 +62,7 @@ jobs:
       - name: Read content from artifact
         if: success() || failure()
         run: |
-          content=$(cat megalinter-reports/mega-linter.log)
+          content=$(cat megalinter-reports mega-linter.log)
           echo "::set-output name=content::$content"
 
       - name: Comment a pull_request
