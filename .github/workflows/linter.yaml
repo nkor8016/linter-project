@@ -52,7 +52,9 @@ jobs:
 
       - name: Extract lines
         if: success() || failure()
-        run: grep "/github/workspace/" megalinter-reports/megalinter.log > extracted-lines.txt
+        run: |
+              grep "/github/workspace/" megalinter-reports/megalinter.log
+              grep "/github/workspace/" megalinter-reports/megalinter.log > extracted-lines.txt
 
       - name: Read content from artifact
         id: read-log
