@@ -50,27 +50,27 @@ jobs:
             megalinter-reports
             mega-linter.log
 
-      - name: Set up Node.js
-        if: success() || failure()
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        if: success() || failure()
-        run: npm install
-
-      - name: Download artifact
-        if: success() || failure()
-        uses: actions/download-artifact@v4
-        with:
-          name: Mega-Linter reports
-
-      - name: Read content from artifact
-        if: success() || failure()
-        run: |
-          content=$(cat megalinter-reports/mega-linter.log)
-          echo "::set-output name=content::$content"
+#      - name: Set up Node.js
+#        if: success() || failure()
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: '20'
+#
+#      - name: Install dependencies
+#        if: success() || failure()
+#        run: npm install
+#
+#      - name: Download artifact
+#        if: success() || failure()
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: Mega-Linter reports
+#
+#      - name: Read content from artifact
+#        if: success() || failure()
+#        run: |
+#          content=$(cat megalinter-reports/mega-linter.log)
+#          echo "::set-output name=content::$content"
 
       - name: Comment on GitHub
         if: success() || failure()
@@ -79,4 +79,4 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
-            -d '{"body": "Artifact Content:\n\n'"${{ steps.comment_on_artifact.outputs.content }}"'"}'
+            -d '{"body": "Test Comment"}'
