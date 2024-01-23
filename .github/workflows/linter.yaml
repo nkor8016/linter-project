@@ -50,17 +50,16 @@ jobs:
           APPLY_FIXES_EVENT: push
           APPLY_FIXES_MODE: commit
 
+      - name: Extract lines
+        run: grep "/github/workspace/" megalinter-reports/megalinter.log > extracted-lines.txt
+
       - name: Read content from artifact
         id: read-log
         if: success() || failure()
         run: |
-          ls megalinter-reports
-          content=$(cat megalinter-reports/megalinter.log)
-          echo "::set-output name=content::$content"
-          error_lines=$(grep "/github/workspace/" megalinter-reports/megalinter.log)
+          error_lines=$(cat extracted-lines.txt)
           paragraph=$(echo "$error_lines" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
-
 
       - name: Comment a pull_request
         if: success() || failure()
