@@ -42,7 +42,7 @@ jobs:
           JAVA_CHECKSTYLE_CONFIG_FILE: sun_checks.xml
           APPLY_FIXES: all
           APPLY_FIXES_EVENT: push
-          APPLY_FIXES_MODE: pull_request
+          APPLY_FIXES_MODE: commit
 
       - name: Archive production artifacts
         if: success() || failure()
