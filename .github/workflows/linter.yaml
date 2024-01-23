@@ -50,24 +50,6 @@ jobs:
           APPLY_FIXES_EVENT: push
           APPLY_FIXES_MODE: commit
 
-#      - name: Archive production artifacts
-#        if: success() || failure()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: Mega-Linter reports
-#          path: |
-#            megalinter-reports
-#            mega-linter.log
-#
-#      - name: Download artifact
-#        if: success() || failure()
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: Mega-Linter reports
-#          path: |
-#            megalinter-reports
-#            mega-linter.log
-
       - name: Read content from artifact
         id: read-log
         if: success() || failure()
@@ -77,6 +59,7 @@ jobs:
           echo "::set-output name=content::$content"
           paragraph=$(echo "$content" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
+          grep "Error" megalinter-reports/megalinter.log
 
 
       - name: Comment a pull_request
