@@ -51,24 +51,29 @@ jobs:
             mega-linter.log
 
       - name: Set up Node.js
+        if: success() || failure()
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
       - name: Install dependencies
+        if: success() || failure()
         run: npm install
 
       - name: Download artifact
+        if: success() || failure()
         uses: actions/download-artifact@v2
         with:
           name: Mega-Linter reports
 
       - name: Read content from artifact
+        if: success() || failure()
         run: |
           content=$(cat megalinter-reports/mega-linter.log)
           echo "::set-output name=content::$content"
 
       - name: Comment on GitHub
+        if: success() || failure()
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
