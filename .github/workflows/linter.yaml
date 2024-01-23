@@ -55,6 +55,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Mega-Linter reports
+          path: |
+            megalinter-reports
+            mega-linter.log
 
       - name: Read content from artifact
         if: success() || failure()
