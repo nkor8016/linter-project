@@ -95,6 +95,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   comment_on_pr:
+
+    permissions:
+      contents: write
+      packages: read
+      issues: write
+      pull-requests: write
+      # To report GitHub Actions status checks
+      statuses: write
+
     needs: mega-linter
     runs-on: ubuntu-latest
     if: always()
@@ -122,6 +131,15 @@ jobs:
           echo "::set-output name=content::$CONTENT"
 
   post_comment:
+
+    permissions:
+      contents: write
+      packages: read
+      issues: write
+      pull-requests: write
+      # To report GitHub Actions status checks
+      statuses: write
+
     if: always()
     needs: comment_on_pr
     runs-on: ubuntu-latest
