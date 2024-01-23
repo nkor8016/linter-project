@@ -43,22 +43,12 @@ jobs:
 
       - name: Archive production artifacts
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Mega-Linter reports
           path: |
             megalinter-reports
             mega-linter.log
-
-      - name: Set up Node.js
-        if: success() || failure()
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        if: success() || failure()
-        run: npm install
 
       - name: Download artifact
         if: success() || failure()
