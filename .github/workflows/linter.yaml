@@ -93,6 +93,22 @@ jobs:
           echo "Content: ${{ steps.extract-info.outputs.content }}"
           echo "Errors: ${{ steps.extract-info.outputs.errors }}"
 
+      - name: Run Python Script
+        if: always()
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+        shell: bash
+
+      - name: Pass Inputs to Shell
+        run: |
+          content=$(megalinter-reports/megalinter.log)
+          echo "CONTENT=$content" >> $GITHUB_ENV
+        shell: bash
+
       - name: Comment a pull_request
         if: success() || failure()
         uses: mb2dev/github-action-comment-pull-request@1.0.0
