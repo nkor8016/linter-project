@@ -121,15 +121,6 @@ jobs:
             const content = fs.readFileSync('extracted-errors.txt', 'utf-8');
             core.setOutput('extracted-errors', content);
 
-      - name: Read extracted errors
-        id: get-error-lines
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const fs = require('fs');
-            const content = fs.readFileSync('./extracted-errors.txt', 'utf-8');
-            core.setOutput('extracted-errors', content);
-
       - name: Comment a pull_request
         if: success() || failure()
         uses: mb2dev/github-action-comment-pull-request@1.0.0
