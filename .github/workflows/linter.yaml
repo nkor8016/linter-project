@@ -95,6 +95,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   comment_on_pr:
+    needs: mega-linter
     runs-on: ubuntu-latest
 
     steps:
