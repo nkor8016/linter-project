@@ -85,6 +85,7 @@ jobs:
           content=$(grep '[Error]' megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
           echo "Content: $content"
+          echo "::set-env name=LOG_CONTENT::$(cat megalinter-reports/megalinter.log)"
 
       - name: Debug
         if: success() || failure()
@@ -93,29 +94,11 @@ jobs:
           echo "Content: ${{ steps.extract-info.outputs.content }}"
           echo "Errors: ${{ steps.extract-info.outputs.errors }}"
 
-      - name: Run Python Script
-        if: always()
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        if: success() || failure()
-        run: pip install -r requirements.txt
-        shell: bash
-
-      - name: Pass Inputs to Shell
-        if: success() || failure()
+      - name: Display the path
+        shell: python
         run: |
-          content=$(megalinter-reports/megalinter.log)
-          echo "CONTENT=$content" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Get Error Lines
-        if: success() || failure()
-        id: get-error-lines
-        run: python python/src/extract_lines.py megalinter-reports/megalinter.log
-        shell: bash
+          log_content = os.environ.get('LOG_CONTENT', '')
+          print(log_content)
 
       - name: Comment a pull_request
         if: success() || failure()
