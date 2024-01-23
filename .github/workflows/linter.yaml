@@ -126,6 +126,7 @@ jobs:
         if: success() || failure()
         id: read_content
         run: |
+          ls .
           ls megalinter-reports
           CONTENT=$(cat megalinter-reports/megalinter.log)
           echo "::set-output name=content::$CONTENT"
