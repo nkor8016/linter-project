@@ -57,9 +57,9 @@ jobs:
           ls megalinter-reports
           content=$(cat megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
-          paragraph=$(echo "$content" | tr '\n' ' ')
+          error_lines=$(grep "/github/workspace/" megalinter-reports/megalinter.log)
+          paragraph=$(echo "$error_lines" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
-          grep "/github/workspace/" megalinter-reports/megalinter.log
 
 
       - name: Comment a pull_request
