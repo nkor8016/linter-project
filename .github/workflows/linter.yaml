@@ -98,6 +98,7 @@ jobs:
         if: success() || failure()
         shell: python
         run: |
+          import os
           log_content = os.environ.get('LOG_CONTENT', '')
           print(log_content)
 
