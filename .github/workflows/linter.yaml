@@ -45,7 +45,7 @@ jobs:
           ENABLE_LINTERS: JAVA_CHECKSTYLE
           DISABLE_LINTERS: JAVA_PMD
           JAVA_CHECKSTYLE_CONFIG_FILE: sun_checks.xml
-          APPLY_FIXES: all
+          APPLY_FIXES: JAVA_CHECKSTYLE
           APPLY_FIXES_EVENT: push
           APPLY_FIXES_MODE: commit
 
