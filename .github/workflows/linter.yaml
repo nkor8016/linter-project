@@ -94,8 +94,22 @@ jobs:
           echo "Content: ${{ steps.extract-info.outputs.content }}"
           echo "Errors: ${{ steps.extract-info.outputs.errors }}"
 
-      - run: grep -E '\[Error\]|Error:' megalinter-reports/megalinter.log > extracted-errors.txt
+      - uses: actions/setup-python@v4
         if: success() || failure()
+        with:
+          python-version: '3.x'
+
+      - run: pip install line-extractor
+        if: success() || failure()
+
+      - run: python extract_lines.py megalinter-reports/megalinter.log > extracted-lines.txt
+        if: success() || failure()
+
+      - uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+         name: extracted-lines
+         path: ./extracted-lines.txt
 
       - name: Read extracted errors
         if: success() || failure()
@@ -105,6 +119,15 @@ jobs:
           script: |
             const fs = require('fs');
             const content = fs.readFileSync('extracted-errors.txt', 'utf-8');
+            core.setOutput('extracted-errors', content);
+
+      - name: Read extracted errors
+        id: get-error-lines
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            const content = fs.readFileSync('./extracted-errors.txt', 'utf-8');
             core.setOutput('extracted-errors', content);
 
       - name: Comment a pull_request
