@@ -75,6 +75,8 @@ jobs:
           ls megalinter-reports
           content=$(cat megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
+          paragraph=$(echo "$content" | tr '\n' ' ')
+          echo "::set-output name=content::$paragraph"
 
       - name: Pass content as an output
         if: success() || failure()
