@@ -60,6 +60,7 @@ jobs:
         id: read-log
         if: success() || failure()
         run: |
+          cat extracted-lines.txt
           error_lines=$(cat extracted-lines.txt)
           paragraph=$(echo "$error_lines" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
