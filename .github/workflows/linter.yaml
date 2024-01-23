@@ -51,6 +51,7 @@ jobs:
           APPLY_FIXES_MODE: commit
 
       - name: Extract lines
+        if: success() || failure()
         run: grep "/github/workspace/" megalinter-reports/megalinter.log > extracted-lines.txt
 
       - name: Read content from artifact
