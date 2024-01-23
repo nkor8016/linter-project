@@ -84,7 +84,7 @@ jobs:
         if: success() || failure()
         run: |
           cat megalinter-reports/megalinter.log
-          echo "Content: $CONTENT"
+          echo "Content: ${{ content }}"
           echo "Content: $steps.read-log.outputs.content"
           echo "Content: ${{ steps.read-log.outputs.content }}"
 
@@ -92,5 +92,5 @@ jobs:
         if: success() || failure()
         uses: mb2dev/github-action-comment-pull-request@1.0.0
         with:
-          message: "${{ steps.read-log.outputs.content }}"
+          message: "body: ->${{ steps.read-log.outputs.content }}<-"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
