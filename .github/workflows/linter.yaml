@@ -74,9 +74,12 @@ jobs:
           content=$(cat megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
 
+      - name: Pass content as an output
+        run: echo "artifact_content=${{ steps.read_content.outputs.content }}" >> $GITHUB_ENV
+
       - name: Comment a pull_request
         if: success() || failure()
         uses: mb2dev/github-action-comment-pull-request@1.0.0
         with:
-          message: "${{ steps.read_content.outputs.content }}"
+          message: "Artifact Content: ${{ steps.read_content.outputs.content }}"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
