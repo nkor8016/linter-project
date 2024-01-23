@@ -114,7 +114,7 @@ jobs:
       - name: Get Error Lines
         if: success() || failure()
         id: get-error-lines
-        run: python python/src/extract_lines.py
+        run: python python/src/extract_lines.py megalinter-reports/megalinter.log
         shell: bash
 
       - name: Comment a pull_request
