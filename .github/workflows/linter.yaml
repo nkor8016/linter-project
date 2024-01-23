@@ -41,6 +41,15 @@ jobs:
           APPLY_FIXES_EVENT: all
           APPLY_FIXES_MODE: pull_request
 
+      - name: Archive production artifacts
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Mega-Linter reports
+          path: |
+            megalinter-reports
+            mega-linter.log
+
       - name: Extract information
         run: |
           # Extract the information you want to include in the comment
