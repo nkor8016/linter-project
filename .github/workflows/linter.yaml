@@ -61,11 +61,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: my-artifact
+          name: Mega-Linter reports
 
       - name: Read content from artifact
         run: |
-          content=$(cat mega-linter.log)
+          content=$(cat megalinter-reports/mega-linter.log)
           echo "::set-output name=content::$content"
 
       - name: Comment on GitHub
