@@ -50,23 +50,23 @@ jobs:
           APPLY_FIXES_EVENT: push
           APPLY_FIXES_MODE: commit
 
-      - name: Archive production artifacts
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Mega-Linter reports
-          path: |
-            megalinter-reports
-            mega-linter.log
-
-      - name: Download artifact
-        if: success() || failure()
-        uses: actions/download-artifact@v4
-        with:
-          name: Mega-Linter reports
-          path: |
-            megalinter-reports
-            mega-linter.log
+#      - name: Archive production artifacts
+#        if: success() || failure()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Mega-Linter reports
+#          path: |
+#            megalinter-reports
+#            mega-linter.log
+#
+#      - name: Download artifact
+#        if: success() || failure()
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: Mega-Linter reports
+#          path: |
+#            megalinter-reports
+#            mega-linter.log
 
       - name: Read content from artifact
         id: read-log
@@ -78,45 +78,6 @@ jobs:
           paragraph=$(echo "$content" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
 
-      - name: Extract information from log
-        if: success() || failure()
-        id: extract-info
-        run: |
-          content=$(megalinter-reports/megalinter.log)
-          echo "::set-output name=content::$content"
-          echo "Content: $content"
-          echo "::set-env name=LOG_CONTENT::$content" >> $GITHUB_ENV
-
-      - name: Debug
-        if: success() || failure()
-        run: |
-          cat megalinter-reports/megalinter.log
-          echo "Content: ${{ steps.extract-info.outputs.content }}"
-          echo "Errors: ${{ steps.extract-info.outputs.errors }}"
-
-      - uses: actions/setup-python@v4
-        if: success() || failure()
-        with:
-          python-version: '3.x'
-
-      - run: python python/src/extract_lines.py megalinter-reports/megalinter.log > extracted-lines.txt
-        if: success() || failure()
-
-      - uses: actions/upload-artifact@v3
-        if: success() || failure()
-        with:
-         name: extracted-lines
-         path: ./extracted-lines.txt
-
-      - name: Read extracted errors
-        if: success() || failure()
-        id: get-error-lines
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const fs = require('fs');
-            const content = fs.readFileSync('extracted-errors.txt', 'utf-8');
-            core.setOutput('extracted-errors', content);
 
       - name: Comment a pull_request
         if: success() || failure()
