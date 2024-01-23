@@ -72,5 +72,5 @@ jobs:
       - name: Comment a pull_request
         uses: mb2dev/github-action-comment-pull-request@1.0.0
         with:
-          message: "${{ steps.read_content.outputs.content }}""
+          message: "${{ steps.read_content.outputs.content }}"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
