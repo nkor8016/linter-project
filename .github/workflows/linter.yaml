@@ -73,10 +73,10 @@ jobs:
 #          echo "::set-output name=content::$content"
 
       - name: Comment on GitHub
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.createComment({
+            github.rest.pull_request.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
