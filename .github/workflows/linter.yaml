@@ -85,7 +85,7 @@ jobs:
           content=$(megalinter-reports/megalinter.log)
           echo "::set-output name=content::$content"
           echo "Content: $content"
-          echo "::set-env name=LOG_CONTENT::${{ content }}" >> $GITHUB_ENV
+          echo "::set-env name=LOG_CONTENT::$content" >> $GITHUB_ENV
 
       - name: Debug
         if: success() || failure()
