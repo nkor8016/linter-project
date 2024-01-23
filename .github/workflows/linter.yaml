@@ -94,13 +94,16 @@ jobs:
           echo "Content: ${{ steps.extract-info.outputs.content }}"
           echo "Errors: ${{ steps.extract-info.outputs.errors }}"
 
-      - name: Run Python code
-        if: success() || failure()
-        shell: python
-        run: |
-          import os
-          log_content = os.environ.get('LOG_CONTENT', '')
-          print(log_content)
+      - run: grep -E '\[Error\]|Error:' megalinter-reports/megalinter.log > extracted-errors.txt
+
+      - name: Read extracted errors
+        id: get-error-lines
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            const content = fs.readFileSync('extracted-errors.txt', 'utf-8');
+            core.setOutput('extracted-errors', content);
 
       - name: Comment a pull_request
         if: success() || failure()
@@ -109,6 +112,6 @@ jobs:
           message: |
             body: |
             ```
-            ->${{ steps.read-log.outputs.content }}<-
+            ->${{ steps.get-error-lines.outputs.extracted-errors }}<-
             ```
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
