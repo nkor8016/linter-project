@@ -59,7 +59,7 @@ jobs:
           echo "::set-output name=content::$content"
           paragraph=$(echo "$content" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
-          grep "Error" megalinter-reports/megalinter.log
+          grep "/github/workspace/" megalinter-reports/megalinter.log
 
 
       - name: Comment a pull_request
