@@ -84,7 +84,6 @@ jobs:
       - name: Debug
         if: success() || failure()
         run: |
-          ls -R my-artifact
           cat megalinter-reports/megalinter.log
           echo "Content: $CONTENT"
 
