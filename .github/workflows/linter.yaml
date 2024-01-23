@@ -94,7 +94,8 @@ jobs:
           echo "Content: ${{ steps.extract-info.outputs.content }}"
           echo "Errors: ${{ steps.extract-info.outputs.errors }}"
 
-      - name: Display the path
+      - name: Run Python code
+        if: success() || failure()
         shell: python
         run: |
           log_content = os.environ.get('LOG_CONTENT', '')
