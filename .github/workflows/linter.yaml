@@ -81,5 +81,5 @@ jobs:
           replace: |
             -
             -
-            Errors Found:
+            -
           allow-repeats: false
