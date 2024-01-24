@@ -61,10 +61,10 @@ jobs:
         if: success() || failure()
         run: |
           error_lines=$(grep "/github/workspace/" megalinter-reports/megalinter.log)
-          echo "$error_lines"
+          echo "error-lines: $error_lines"
           paragraph=$(echo "$error_lines" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
-          echo "$paragraph"
+          echo "paragraph - $paragraph"
 
       - name: Debug
         if: always()
