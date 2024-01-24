@@ -72,16 +72,6 @@ jobs:
           echo "error lines: $error_lines"
           echo "paragraph: $paragraph"
 
-      - name: Comment a pull_request
-        if: success() || failure()
-        uses: mb2dev/github-action-comment-pull-request@1.0.0
-        with:
-          data: ${{ steps.read-log.outputs.content }}
-          message: |
-            body: |
-            ${{ steps.read-log.outputs.content }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: mshick/add-pr-comment@v2
         if: always()
         with:
