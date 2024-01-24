@@ -82,5 +82,4 @@ jobs:
             -
             -
             Errors Found:
-          refresh-message-position: true
-          update-only: true
+          allow-repeats: false
