@@ -15,8 +15,9 @@ jobs:
           java-version: 11
           distribution: 'adopt'
 
-      - name: Install Checkstyle
-        run: mvn --batch-mode org.apache.maven.plugins:maven-checkstyle-plugin:checkstyle
-
-      - name: Checkstyle
-        run: mvn checkstyle:check -Dcheckstyle.config.location=../linters/sun_checks.xml
+      - uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: error
+          checkstyle_config: ../linters/sun_checks.xml
