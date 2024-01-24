@@ -79,9 +79,11 @@ jobs:
             extracted-lines.txt
           find: |
             Rules config: [/github/workspace/.github/linters/sun_checks.xml]
+            [ERROR] - Rules config: [/github/workspace/.github/linters/sun_checks.xml]
             /github/workspace/src/main/java/
           replace: |
             -
             -
+            Errors Found:
           refresh-message-position: true
           update-only: true
