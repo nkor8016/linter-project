@@ -63,7 +63,7 @@ jobs:
           error_lines=$(grep "/github/workspace/" megalinter-reports/megalinter.log)
           echo "error-lines: $error_lines"
           paragraph=$(echo "$error_lines" | tr '\n' ' ')
-          echo "::set-output name=content::$error-lines"
+          echo "::set-output name=content::$error_lines"
           echo "paragraph - $paragraph"
 
       - name: Debug
