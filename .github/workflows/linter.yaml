@@ -83,6 +83,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/github-script@v7
+        if: always()
         id: my-script
         with:
           result-encoding: string
