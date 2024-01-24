@@ -75,11 +75,11 @@ jobs:
           message-path: |
             extracted-lines.txt
           find: |
-            /github/workspace/src/main/java/
+            [ERROR] /github/workspace/src/main/java/
             Rules config: [/github/workspace/.github/linters/sun_checks.xml]
             [ERROR] - Rules config: [/github/workspace/.github/linters/sun_checks.xml]
           replace: |
-            -
+            -> 
             -
             -
           allow-repeats: false
