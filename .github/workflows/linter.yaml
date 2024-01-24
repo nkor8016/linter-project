@@ -62,7 +62,7 @@ jobs:
         run: |
           cat extracted-lines.txt
           error_lines=$(grep "/github/workspace/" megalinter-reports/megalinter.log)
-          echo error_lines
+          echo "$error_lines"
           paragraph=$(echo "$error_lines" | tr '\n' ' ')
           echo "::set-output name=content::$paragraph"
 
