@@ -87,3 +87,9 @@ jobs:
         with:
           message-path: |
             extracted-lines.txt
+          find: |
+            Rules config: [/github/workspace/.github/linters/sun_checks.xml]
+            /github/workspace/src/main/java/
+          replace: |
+            
+            
