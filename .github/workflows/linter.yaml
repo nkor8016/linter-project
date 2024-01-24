@@ -18,9 +18,6 @@ jobs:
     name: Find Violations Using Mega Linter
     runs-on: ubuntu-latest
 
-    outputs:
-      read_log: ${{ needs.mega-linter.read-log.artifact_content }}
-
     permissions:
       contents: write
       packages: read
