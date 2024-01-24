@@ -92,4 +92,6 @@ jobs:
             /github/workspace/src/main/java/
           replace: |
             
-            
+
+          refresh-message-position: true
+          update-only: true
