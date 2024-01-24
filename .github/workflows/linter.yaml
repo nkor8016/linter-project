@@ -81,6 +81,6 @@ jobs:
             Rules config: [/github/workspace/.github/linters/sun_checks.xml]
             /github/workspace/src/main/java/
           replace: |
-            
-
+            -
+            -
           refresh-message-position: true
