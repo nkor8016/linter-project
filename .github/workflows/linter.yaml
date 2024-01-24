@@ -51,7 +51,7 @@ jobs:
         if: success() || failure()
         run: |
               grep "/github/workspace/" megalinter-reports/megalinter.log
-              grep "/github/workspace/" megalinter-reports/megalinter.log > extracted-lines.txt
+              grep "/github/workspace/" megalinter-reports/megalinter.log > extracted-lines.log
 
       - name: Read content from artifact
         id: read-log
@@ -74,10 +74,10 @@ jobs:
         with:
           message-path: |
             ```
-            extracted-lines.txt
+            extracted-lines.log
             ```
           find: |
-            [ERROR] /github/workspace/src/main/java/
+            /github/workspace/src/main/java/
             Rules config: [/github/workspace/.github/linters/sun_checks.xml]
             [ERROR] - Rules config: [/github/workspace/.github/linters/sun_checks.xml]
           replace: |
