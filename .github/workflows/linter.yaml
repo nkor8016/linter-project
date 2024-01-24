@@ -66,6 +66,7 @@ jobs:
           echo "::set-output name=content::$paragraph"
 
       - name: Debug
+        if: always()
         run: |
           echo "error lines: $error_lines"
           echo "paragraph: $paragraph"
