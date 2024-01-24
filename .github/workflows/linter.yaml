@@ -81,7 +81,7 @@ jobs:
             Rules config: [/github/workspace/.github/linters/sun_checks.xml]
             [ERROR] - Rules config: [/github/workspace/.github/linters/sun_checks.xml]
           replace: |
-            -> 
+            '-> '
             -
             -
           allow-repeats: false
