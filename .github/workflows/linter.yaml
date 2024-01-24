@@ -73,7 +73,9 @@ jobs:
         if: always()
         with:
           message-path: |
+            ```
             extracted-lines.txt
+            ```
           find: |
             [ERROR] /github/workspace/src/main/java/
             Rules config: [/github/workspace/.github/linters/sun_checks.xml]
@@ -83,3 +85,4 @@ jobs:
             -
             -
           allow-repeats: false
+          preformatted: false
