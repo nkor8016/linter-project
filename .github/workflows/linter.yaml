@@ -84,3 +84,4 @@ jobs:
             -
             -
           refresh-message-position: true
+          update-only: true
