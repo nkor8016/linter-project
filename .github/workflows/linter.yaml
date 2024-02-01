@@ -7,21 +7,15 @@ on:
     branches: [ master, main ]
   workflow_dispatch:
 
-env: #Uncomment to activate variables below
-  # Apply linter fixes configuration
-  APPLY_FIXES: all # Uncomment to apply fixes provided by linters. You can also specify the list of fixing linters
-  APPLY_FIXES_EVENT: all # Decide which event triggers application of fixes in a commit or a PR (pull_request (default), push, all)
-  APPLY_FIXES_MODE: pull_request # If APPLY_FIXES is used, defines if the fixes are directly committed (commit) or posted in a PR (pull_request)
-
-concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: true
-
-permissions: read-all
+env:
+  APPLY_FIXES: all
+  APPLY_FIXES_EVENT: push
+  APPLY_FIXES_MODE: commit
+  content: "demo content"
 
 jobs:
-  build:
-    name: Find Violations
+  mega-linter:
+    name: Find Violations Using Mega Linter
     runs-on: ubuntu-latest
 
     permissions:
@@ -45,18 +39,50 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true # ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} # Validates all source when push on master, else just the git diff with master. Override with true if you always want to lint all sources
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          FILTER_REGEX_INCLUDE: (./src/**/*.java)
           ENABLE: JAVA
           ENABLE_LINTERS: JAVA_CHECKSTYLE
           DISABLE_LINTERS: JAVA_PMD
           JAVA_CHECKSTYLE_CONFIG_FILE: sun_checks.xml
-#          CLI_LINT_MODE: project
+          APPLY_FIXES: JAVA_CHECKSTYLE
+          APPLY_FIXES_EVENT: push
+          APPLY_FIXES_MODE: commit
 
-      - name: Archive production artifacts
+      - name: Extract lines
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        run: |
+              grep "/github/workspace/" megalinter-reports/megalinter.log
+              grep "/github/workspace/" megalinter-reports/megalinter.log > extracted-lines.log
+
+      - name: Read content from artifact
+        id: read-log
+        if: success() || failure()
+        run: |
+          error_lines=$(grep "/github/workspace/" megalinter-reports/megalinter.log)
+          echo "error-lines: $error_lines"
+          paragraph=$(echo "$error_lines" | tr '\n' ' ')
+          echo "::set-output name=content::$error_lines"
+          echo "paragraph - $paragraph"
+
+      - name: Debug
+        if: always()
+        run: |
+          echo "error lines: $error_lines"
+          echo "paragraph: $paragraph"
+
+      - uses: mshick/add-pr-comment@v2
+        if: always()
         with:
-          name: Mega-Linter reports
-          path: |
-            megalinter-reports
-            mega-linter.log
+          message-path: |
+            ```
+            extracted-lines.log
+            ```
+          find: |
+            /github/workspace/src/main/java/
+            Rules config: [/github/workspace/.github/linters/sun_checks.xml]
+            [ERROR] - Rules config: [/github/workspace/.github/linters/sun_checks.xml]
+          replace: |
+            '-> '
+            -
+            -
+          allow-repeats: false
+          preformatted: false

@@ -1,0 +1,26 @@
+name: Reformat Java Code
+
+on:
+  push: null
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+jobs:
+  reformat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4  # Checkout code
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: 11
+          distribution: 'adopt'
+
+      - uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: error
+          checkstyle_config: ../linters/sun_checks.xml
